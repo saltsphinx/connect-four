@@ -1,12 +1,16 @@
+require_relative './board'
+
 class ConnectFour
   def initialize
     @players = ['Red', 'Yellow']
     @current_player = @players.first
-    @board
+    @board = Board.new
   end
 
   def play
     main_menu
+    game_cycle
+    game_ended
   end
 
   def user_input(min, max)
@@ -23,8 +27,26 @@ class ConnectFour
     info if option_select == 2
   end
 
-  def player_turn
+  def game_cycle
+    until @board.game_end?
+      @board.display_board
+      player_turn
+      rotate_player
+      change_player
+    end
+  end
 
+  def player_turn
+    input = nil
+    while input.nil?
+      result = user_input(1, 7)
+      if @board.columns[result - 1].size < 6
+        input = result
+      else
+        puts "Column #{result} is full!"
+      end
+    end
+    @board.insert(input - 1, @current_player)
   end
   
   def rotate_player
@@ -38,6 +60,12 @@ class ConnectFour
   def splash
     splash_text = "Connect Four\n\nOptions:\n1 - Play\n2 - Info"
     puts splash_text
+  end
+
+  def game_ended
+    @board.display_board
+    puts 'Game over!'
+    puts "#{@board.winner} wins!"
   end
 
   def info
