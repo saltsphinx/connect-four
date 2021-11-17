@@ -1,0 +1,56 @@
+the plan is to program a game that resembles the Hasbro's verison of Connect Four.
+In other words, a board with 6 rows and 7 columns.
+
+explain the problem is simple terms:
+makea connect four game that two people can play, that prints a representation of the
+current board to screen. whenever one of the players connect four of their color in a
+horizional, vertial or diagonal pattern, end the game. Inputs from the player will only be
+which column they choose to place their piece.
+
+Does your program have a user interface? What will it look like? What functionality will the interface have?
+No user interface, it will be played in the CMD
+
+What inputs will your program have? Will the user enter data or will you get input from somewhere else?
+Inputs will come through the #gets, aka user entered data. the input will be used to choose columns on the
+board.
+
+What’s the desired output?
+Whichever column/slot the user chose having a piece added to it or reprompting user if column is full. if a
+winning pattern is found, end the game.
+
+Given your inputs, what are the steps necessary to return the desired output?
+
+First, create the input receiving and verifying methods
+Second, create the main menu, which puts text to the screen and requires #user_input. #user_input should be passed min of 1
+and a max of 2, for the main menu options. One option is to begin the game, the other is to see the instructions
+Third, create the methods for #play_game, which is the game loop. It: Displays the board #display, player turn #player_turn, check board #game_over?, rotate player turn #rotate_players
+
+Classes: ConnectFour, Board, Disc
+ConnectFour's purpose: Meant to handle all of the game function calls and player handling
+it: Changes player, calls methods to verify input and the status of the board, prompts players to certain required actions, ends the game when its complete and
+announces the winner
+
+Board's purposde: Handles board creation and verification of board status
+it: generates the game board that has 6 arrays(representing columns or the slots of c4), verifies that each of the arrays only have a max of 7 items(representing rows),
+displays board to cmd
+
+Disc's purpose: Creates nodes that interact with the board and its arrays
+it: connects to other nodes if their color are the same, tallys similar colors in 4 directions(up/down, left/right and the two diagonals), calls game if last disc to enter
+board tally equals 4
+
+What sort of testing does Disc need? What are its core functions?
+Disc objects need to be able to correctly identify other discs around them. They need to be able to scan other columns for same color discs. They need to be able to
+call the game when their tally eqauls 4 or more
+
+to keep tallys, make 4 arrays representing the four directions a match can be made (up/down, left/right and the two diagonals)
+
+6 6 6 horizional: [[-1, 0], [0, 0], [1, 0]] vertial: [[0, 1], [0, 0], [0, -1]] left diagonal [[-1, 1], [0, 0], [1, -1]] right diagonal [[1, 1], [0, 0], [-1, -1]]
+5 5 5
+4 4 4
+
+get_neighbours and get_indices can be removed, but their functionality will be useful for the methods in mind. One method should use the above arrays (which are meant
+to be added to disc object's column(the first item of the arrays) and row(the second item) instance variables) to find the index pairs for each direction. If one of the 
+indices are over the column or row limit, itll be excluded
+
+We have a method that gets the indices of the 4 directions, now we need a method that gets the discs at those indices for each of the directions, check that theyre the same
+disc color, and then record those nodes in each others direction instance variable

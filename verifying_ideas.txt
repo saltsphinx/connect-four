@@ -1,0 +1,9 @@
+create a custom data structure
+nodes that connect if theyre adjacent
+7 arrays representing the columns, theyre used
+to keep tracking of the nodes, and for the users
+to choose which column to drop pieces into
+
+only connect nodes if theyre the same color
+each node scans its potential 8 surrounding nodes for other nodes, and keeps a tally
+so if there are 1 node to the left and 2 to the right, thats a winning
